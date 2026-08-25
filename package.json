@@ -12,6 +12,12 @@
     "test:code": "node tests/code-execution.test.js",
     "test:all": "npm run test:integration && npm run test:api && npm run test:code"
   },
+"pnpm": {
+  "onlyBuiltDependencies": [
+    "sharp",
+    "unrs-resolver"
+  ]
+},  
   "dependencies": {
     "@ai-sdk/anthropic": "^2.0.1",
     "@ai-sdk/google": "^2.0.4",
