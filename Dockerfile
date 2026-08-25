@@ -1,12 +1,12 @@
 # ---- deps ----
-FROM node:20-bookworm-slim AS deps
+FROM node:22-bookworm-slim AS deps
 WORKDIR /app
 COPY package.json pnpm-lock.yaml* ./
 RUN corepack enable && corepack prepare pnpm@latest --activate
 RUN pnpm install --frozen-lockfile
 
 # ---- build ----
-FROM node:20-bookworm-slim AS build
+FROM node:22-bookworm-slim AS build
 WORKDIR /app
 RUN corepack enable && corepack prepare pnpm@latest --activate
 COPY --from=deps /app/node_modules ./node_modules
@@ -14,7 +14,7 @@ COPY . .
 RUN pnpm run build
 
 # ---- production ----
-FROM node:20-bookworm-slim AS production
+FROM node:22-bookworm-slim AS production
 WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=3000
